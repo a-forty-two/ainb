@@ -1,0 +1,123 @@
+
+Deployment Options:
+1) ACI -> Container Instance, small user set
+2) AKS -> Kubernetes, high availability or on-prem use
+3) App Service-> Chat bots, user facing AI
+4) FPGA-> field programmable Gate Arrays 
+ - help with EDGE computing
+ - placing server on device itself! 
+ - need for cloud communication is reduced
+	- NOT eliminated: Monitoring, Logging 
+
+http://54a2a870-ca9f-47bb-a26f-a2f026a6c485.eastus.azurecontainer.io/score
+
+- Azure Active Directory
+	-> ROLE based Access Control
+		-> Users and Groups (HUMANS)[ID, emails..]
+		-> User Principal Name
+		-> Services (Software, APIs, automated services)
+		-> Service Principal Name
+
+We run an experiment
+
+'EXPERIMENT' -> parallel executions of your pipeline/ML activities
+
+RUN is an individual execution
+
+CLUSTERS-> ML is never meant for single machine!
+Each machine could support 1 parallel execution for large tasks for example!
+
+- Training (Model training, data wraning)
+	- cost effective
+	- scalability-> min:0 machine, scale max: N nodes
+	-> auto-shuts down when not in use
+	-> Scale it manually or only when in use
+- Inference (Production level use)
+	- performance and availability 
+	- Kubernetes Cluster: Min 3 node (4 vCPUs each) 
+	- Scalability-> Kuberenets + Az -> Auto Scaler
+
+2 kinds of inference pipelines:
+1) Batch Pipelines-> invoke via external events/schedules/function
+	- REST endpoint bus hosted on ML Studio 
+2) Real Time Inference-> Kubernetes Cluster, highly availbale,
+	- REST endoint deployed on CLUSTER
+	- input needs to come from WEB SERVICE
+	- output needs to go to WEB SERVICE
+
+- histogram - barcharts
+
+- SMOTE-> generate balancing data for weaker class
+	-> tries to balance towards central tendency
+	-> M   B
+ 	  50  150 <- Benign will have a higher representation
+SMOTE->   100 150
+SMOTE->   125 150
+SMOTE->   137 150 
+SMOTE->   165 150 <- opposite! Malignant will have higher rep!
+SMOTE 3 times is good enough to balance any class!
+
+Cleaning Missing/Null Values:
+-Replace It
+	- Mean, Median, Mode, Custom Value
+-Drop it
+	- Row level, column level
+- anything else
+	- Python or R Script
+
+Sample pipleine: https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-designer-automobile-price-train-score
+
+
+-> if one variable was TOO large or TOO small, then value w will be
+insignficant!
+-> Data Normalization!-> brings data into a relative-measurable scale
+-> done with continuous and not discrete values
+eg.. MinMax, /Max, Z-Score 
+tanh -> -1 to 1, log
+
+In case of discrete, One-hot mapping or encoding 
+y = w1*fuel_type+ w2* length + w3*width + w4*height + bias
+Gas->0, Fuel->1 (Encoding)
+w1*0 or w1*1!
+
+One-Hot Encoding (Classification labels or discrete values)
+Fuel_Gas and Fuel_diesel -> 2 columns would be created
+   0             1
+   1             0
+
+DataStore-> Physical Infra-> has DataSets
+DataSet -> complete data-> has DataFrames 
+
+ML->
+y = weights * input + bias
+diagnosis = weights * (radius, texture... fractal_dim) + bias
+
+id => exclude
+input -> PCA or LDA or ANOVA or SME
+
+Algos: https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/machine-learning-initialize-model-classification
+
+Classification problems-> SPLIT data 
+->Stratified split-> ENsures that splitting has imbalanced classes
+represented properly 
+
+2 stages of ML:
+Training-> Fitting (Training), Scoring (preidictions), Evaluate(metrics)
+Inference-> USING your model
+
+Model-> CLUSTERING, Matchbox recommendation, Analmoly detection
+
+Hyperparameters
+1) GRID search-> Exhaustive search, generate all combinations
+	-> slow process
+	-> tends to give best hyperparams 
+
+2) Randomized Search-> random, workable hyperparams received 
+	-> much faster 
+
+3) Bayesian Approach/ Probablistic approach 
+
+
+
+out of course:
+https://towardsdatascience.com/how-to-forecast-sales-with-python-using-sarima-model-ba600992fa7d
