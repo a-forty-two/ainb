@@ -1,3 +1,117 @@
+- Azure Active Directory
+	-> ROLE based Access Control
+		-> Users and Groups (HUMANS)[ID, emails..]
+		-> User Principal Name
+		-> Services (Software, APIs, automated services)
+		-> Service Principal Name
+AAD-> Multiple Subscriptions-> Resource provider 
+
+
+
+		
+Key Vault:
+Soft delete-> deleted elements can be recovered for a period of time
+Retention period (days)
+Purge protection-> ELEMENTS cannot be deleted 
+HSM-> hardware Security Module
+
+******* key vault to storage***
+container name: input
+storage account: goofy123123.blob.core.windows.net/
+key: w0fGqZMxbPodPSp9qD42MZO5vSFCDGmNGhYKP1GLz5BkP7x7ZfM3lOYWD4XcZ9eUctqW8smCIgiTmC6TfI/saA==
+
+keyvault secret key: mantis
+keyvault ResourseID: /subscriptions/353b9ff5-223a-4dc4-853e-825bc329d30c/resourceGroups/brinjal/providers/Microsoft.KeyVault/vaults/chestnut
+keyvault URL: https://chestnut.vault.azure.net/
+Databricks secret Scope: monkey
+Databricks URL o=121213242: add #secrets/createScope
+
+*****************
+DataBricks -> JOBS -> pyspark or R or SQL or Scala notebooks
+participates in building WORKFLOWS and ORCHESTRATION
+
+Spark -> In memory ANALYSIS
+DECLRATIVE-> LAZY evalutation
+(Directed Acyclic Graphs) 
+in memory-> SparkContext
+batch/sql like (HIVE) -> SQLContext 
+streaming -> StreamContext 
+
+DBricks -> Apache + FUNCTIONALITY! (DataBrick Utilities- dbutils)
+***************
+
+big data and Data Engineering
+	- security + monitoring (most likely tomorrow)
+
+Apache spark open source cluster management- HDInsight
+- analytical product
+
+Spark-> SparkContext (RAM), StreamContext, SQLContext (HIVE, PIG)
+
+-> compute-> Data Analysis
+	- Apache Spark -> In memory analytics-> Py, Scala, Java
+		- HIVE (sql like syntax for big data)
+	- ML with R (non apache/built by Az)
+	- Interactive Query (SQL on Hadoop)(non apache/built by Az)
+-> store-> Big Data Storage 
+	- Hadoop-> real-time processing and PETABYTE level storage 
+	- HBase -> No SQL/unstructured data
+	Files/blobs-> store in DataLake instead
+-> network-> data transfer(BIG) [STREAMING]
+	- Consuming Stream(s): Apache Storm
+	- streaming data: Apache kafka
+
+
+
+- SQL
+- SQL pool- availability ; backup machines for fault tolerance 
+- SQL Elastic Pool- shared infra between multiple dbs, helps reduce 
+infra cost
+
+measuing Units?
+- diff machines offer different performance
+- billing and management reasons, it made sense do divide into
+	into a hardware agnostic fraction based measure
+DWU-> data warehouse units
+	DW1000c = 1000 X 10^-2= 10 concurrent cores 
+RU -> request units 
+CU -> compute units 
+
+4 kinds of storage accounts
+- blob (binary file based structure, target of BULK data 
+for cost reasons whether streaming or batch)
+- Table (No SQL Tables, target of Iot or streaming data)
+- Queue (first-come-first serve), communication between az apps
+- File -> SMB/ftp protocol and file hosting
+Data Lake:
+Enabling Heirarchial storage on BLOBS
+	- tree structure rather than linked list!
+Replication
+Web Dev: Wherever my customers are
+Data Engineer collecting the data: RA-GRS
+Data Scientist analyzing data: LRS
+
+4 products Data Automation or Orchestration or Workflows in Azure:
+- ML-> ML Pipelines 
+- Big data-> DataBricks 
+- ETL -> DataFactory (and DataFlow)
+- Enterprise pipelines-> Azure Pipelines (and DataFlow)
+
+Data Factory
+Linked Service: Bidirectional NETWORK channels
+- resolves Integration Runtimes or connection strings or any
+other form of authentication+quick-dedicated-data-transfer
+eg... Sql Server Integration Runtime (SSIR)
+- have an inbuilt IR called AutoResolve 
+
+Fault Tolerance:
+	- SKIPPED it
+	- Stopped it
+	- SKIPPED and LOG it  
+Integration Runtimes
+	- Azure Integration Runtime: only on internet
+	- Self Hosted-> on premise, can also on internet 
+	- SSIR-> dedicated for SQL server
 
 Deployment Options:
 1) ACI -> Container Instance, small user set
@@ -11,12 +125,7 @@ Deployment Options:
 
 http://54a2a870-ca9f-47bb-a26f-a2f026a6c485.eastus.azurecontainer.io/score
 
-- Azure Active Directory
-	-> ROLE based Access Control
-		-> Users and Groups (HUMANS)[ID, emails..]
-		-> User Principal Name
-		-> Services (Software, APIs, automated services)
-		-> Service Principal Name
+
 
 We run an experiment
 
@@ -117,7 +226,156 @@ Hyperparameters
 
 3) Bayesian Approach/ Probablistic approach 
 
+Very very very important:
+https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+
+- Early Stopping
+	- Threshold based (Pipelines, Automated ML)
+		- min/max criterion 
+	- MULTIPLE options (notebooks)
+ 	  - Hyperdrive
+	    - Truncations -> based on threshold
+		-> can lead to no algos selected!
+	    - Median -> bottom half performing of algos are dropped
+		' the top 50% of the 50%..... (iterations of stopping)
+	    - Bandit Policy-> moving median-like formula 
+		-> amount or ratio 
+		-> select a few 'top performers'
+
+- delay_evaluation , evaluation_interval
+-> at least 5 delayed RUNs (wait for history to decide better and 
+	poorer runs!)
+-> evluation_interval-> how frequently do we want policy applied!
+	-> 1=> every iteration after first 5 (delay)
+	-> 2=> alternate Runs will be evaluated after first 5
+Scalability:
+- Kubernetes(IaaS)
+	- https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler
+	- cluster autoscaler 
+- App Services (PaaS)
+	- App Service Plan ( Reserves infra for performance and cost 
+		calculation)
+Security:
+- AKS
+	- get SSL certificate
+	- sign in via SSH 
+	- update the settings on VM and DNS
+- App Services
+	- SSL certificate can be uploaded directly 
+
+
+- DSVM
+	- Linux (core), Ubuntu (popular, program languages), 
+	Windows (familiar UI and tools and less CLI)- 2016, 2019
+https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/tools-included
+Multiple prog languages-> Ubuntu and Windows 
+High performance/more resource for ML-> LINUX 
+tools/platform/frameworks-> LINUX 
+
+D-> general purpose, DS-> ML, N -> (nvidia tesla gpus)-> deep ML
+
+Windows-> RDP (remote desktop protocol)
+Linux/Ubuntu-> SSH 
+
+Monitoring:
+- Numeric: Metrics -> Monitor
+- string: Logs -> Log Analytics Workspace 
+
+2 aggregation factors:
+eg.. storage, data-input-speed or throughput rate
+-> SUM-> Network Throughput (Billed-> total usage) 
+-> Average -> network throughput (speed/load -> avg load/user)
+
+data consumed-> AVERAGE not sum!
+
+Special attention on Monitoring:
+-> storage accounts
+-> ML-> runs, clusters (fail/success), automated ML/pipeline events
+
+
+
+Alerts:
+- ACTION whenever an event happens
+	- Metrics cross(underscores) a threshold [load below 20%]
+	- Communication based: email, phone, sms
+	- automation: run a az function to run a batch pipeline or
+	scale a cluster or, shut down VM
+
+Model-> time-series 
+-> data upgrade, => drift -> change in data 
+-> MEASURE of drift and set up alerts and MONITOR the drift 
+
+
+
+important:
+aka.ms/dp100labs
+https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/compute-linear-correlation
+https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/filter-based-feature-selection
+
 
 
 out of course:
 https://towardsdatascience.com/how-to-forecast-sales-with-python-using-sarima-model-ba600992fa7d
+https://developers.google.com/machine-learning/crash-course/representation/qualities-of-good-features
+https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html
+
+
+Exam Pattern:
+
+-32 to 40, 48 questions (270 mins-> registration time, 3 hours for core exam)
+- 700 out of 1000
+
+Dp 100-> no labs, but scenario based questions 
+
+Decision Making-> Yes/No-> cannot review the answer
+-> I want security in AKS. 
+Solution: I went to portal and uploaded the certificate
+Is this the right choice?
+- Yes
+- NO 
+Solution: log in via port 22 and update DNS
+Is this the right choice?
+- Yes <- yes
+- NO 
+Solution: log in via port 22, update local SSL and then update DNS
+Is this the right choice?
+- Yes <- yes
+- NO 
+
+Arranging process in Right Order
+-> Create an Alert to monitor data drift 
+- shuffled steps 
+-> each correct answer is counted
+
+Fill in the blanks -> drop down of options 
+-> each correct answer is counted
+
+MCQ-> multiple objectives to be correct [question clearly says so]
+	-> each correct answer is counted
+
+Passage based Comprehension:
+-> look at data, feature names and visualizations
+-> jump to questions 
+-> then read the passage!
+
+
+
+How do you select categorical columns->
+	-> suffieciently Neither too large nor too small categories
+
+importance ( all-categories) = 1 = distribution (all-categories)
+
+-> All categories -> should have almost equal data 
+-> 1-Hot mapping-> creates new columns (upto 5 unique categorical values)
+-> Label encoding-> converts into number into same column
+
+
+-> when above doesn't hold true, category could also act as 	
+a filter to reduce the size of data to analyze
+	- this way we can focus on data that has strongly representing
+
+
+Time Series corrections:
+	- Data Drift
+	- Decompose graph -> and predict on child graphs instead
+
